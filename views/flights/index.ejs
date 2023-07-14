@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+<h2>All flights</h2>
+<table>
+    <thead>
+        <td>Airline</td>
+        <td>Airport</td>
+        <td>Flight No</td>
+        <td>Departure <%- sort==='desc' ? '&darr;<a href="/flights/?sort=asc">&uarr;</a>' : '<a href="/flights/?sort=desc">&darr;</a>&uarr;'  %></td>
+    </thead>
+    <tbody>
+        <% flights.forEach(f => { %>
+            <tr>
+                <td><%= f.airline %></td>
+                <td><%= f.airport %></td>
+                <td><%= f.flightNo %></td>
+                <td class=<%= f.departs.getTime() < new Date().getTime() ? 'missed' : '' %>><%= f.departs %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<%- include('../partials/footer') %>

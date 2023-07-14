@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+    <h2>Add a new flight</h2>
+    <form action="/flights" method="post">
+    <div style="display: grid; grid-template-columns: 1fr 4fr; grid-template-rows: auto auto auto auto;">
+        <div>
+            <label>Airline:</label>
+        </div>
+        <div>
+            <select name="airline">
+                <option disabled selected hidden>n/a</option>
+                <option value="American">American</option>
+                <option value="Southwest">Southwest</option>
+                <option value="United">United</option>
+            </select>
+        </div>
+        <div>
+            <label>Airport:</label>
+        </div>
+        <div>
+            <select name="airport">
+                <option value="AUS" <%= airport === 'AUS' ? 'selected' : '' %> >AUS</option>
+                <option value="DFW" <%= airport === 'DFW' ? 'selected' : '' %>>DFW</option>
+                <option value="DEN" <%= airport === 'DEN' ? 'selected' : '' %>>DEN</option>
+                <option value="LAX" <%= airport === 'LAX' ? 'selected' : '' %>>LAX</option>
+                <option value="SAN" <%= airport === 'SAN' ? 'selected' : '' %>>SAN</option>
+            </select>
+        </div>
+        <div>
+            <label>Flight no:</label>
+        </div>
+        <div>
+            <input type="number" name="flightNo" min="10" max="9999">
+        </div>
+        <div>
+            <label>Departure:</label>
+        </div>
+        <div>
+            <input type="datetime-local" name="departs" value="<%= departs %>">
+        </div>
+        <div>
+
+        </div>
+        <div>
+            <button style="margin-top: 10px;" type="submit">Create Flight</button>
+        </div>
+    </div>
+</form>
+<p><%= errorMsg %></p>
+    <%- include('../partials/footer') %>
