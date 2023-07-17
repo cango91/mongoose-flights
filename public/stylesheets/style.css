@@ -10,3 +10,20 @@ a {
 .missed {
   color: red;
 }
+
+.details{
+  display: flex;
+  flex-direction: column;
+}
+
+.details div{
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 1fr;
+}
+
+.details div.destination{
+  display: grid;
+  grid-template-columns: 50px 100px 100px 500px;
+  grid-template-rows: 1fr;
+}

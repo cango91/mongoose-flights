@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+<% if(flight){%>
+    <h2>Flight Details of #<%= flight.flightNo %></h2>
+    <div class="details">
+        <div><span><b>Flight no:</b></span><span><%= flight.flightNo %></span></div>
+        <div><span><b>Airline:</b></span><span><%= flight.airline %></span></div>
+        <div><span><b>From:</b></span><span><%= flight.airport %></span></div>
+        <div><span><b>Departure:</b></span><span><%= flight.departs %></span></div>
+        <div><span><b>Destinations:</b></span><span class="details">
+            <div style="display: flex; margin: 0 0 20px 0;">
+                <form method="post" action="/flights/<%= flight._id %>/destinations">
+                    <label>Arrival:</label>
+                    <input type="datetime-local" name="arrival" value="<%= departs %>">
+                    <label>Destination:</label>
+                    <select name="airport">
+                 <% if(flight.destinations && !flight.destinations.find((el)=>el.airport==='AUS') && flight.airport !== 'AUS'){ %> <option value="AUS">AUS</option> <% } %>
+                 <% if(flight.destinations && !flight.destinations.find((el)=>el.airport==='DFW') && flight.airport !== 'DFW'){ %> <option value="DFW">DFW</option> <% } %>
+                 <% if(flight.destinations && !flight.destinations.find((el)=>el.airport==='SAN') && flight.airport !== 'SAN'){ %> <option value="SAN">SAN</option> <% } %>
+                 <% if(flight.destinations && !flight.destinations.find((el)=>el.airport==='LAX') && flight.airport !== 'LAX'){ %> <option value="LAX">LAX</option> <% } %>
+                 <% if(flight.destinations && !flight.destinations.find((el)=>el.airport==='DEN') && flight.airport !== 'DEN'){ %> <option value="DEN">DEN</option> <% } %>
+                    </select>
+                    <input type="submit" value="Add Destination">
+                </form>
+            </div>
+            <% if(flight.destinations && flight.destinations.length){ %>
+                <% flight.destinations.forEach(d => { %>
+                <div class="destination">
+                    <span><b>To:</b></span><span><%= d.airport %></span><span><b>Arrival:</b></span><span><%= d.arrival %> </span>
+                </div>
+                <% }); %>
+        <% }else{ %>
+
+            <% } %>
+        </span></div>
+
+    </div>
+<% }else{ %>
+    <%- errorMsg %>
+<% } %>
+<%- include('../partials/footer') %>

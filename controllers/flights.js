@@ -13,6 +13,23 @@ const getAll = async (req, res) => {
     });
 }
 
+const show = async (req,res) =>{
+    try{
+        const flight = await Flight.findById(req.params.id);
+        if(!flight) throw new Error('flight not found');
+        flight.destinations.sort((a,b)=> a.arrival-b.arrival );
+        res.render('flights/show',{
+            flight,
+            ..._getDefaults(),
+        });
+    }catch(e){
+        res.render('flights/show',{
+            flight:null,
+            errorMsg: `<p style="color: red;">Flight not found</p><p><a href="/flights">click to go back</a></p>`
+        });
+    }
+}
+
 const _getDefaults = () => {
     const dt = new Flight().departs;
     const airport = new Flight().airport;
@@ -45,4 +62,5 @@ module.exports = {
     getAll,
     new: newFlight,
     create,
+    show,
 }
