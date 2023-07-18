@@ -1,4 +1,5 @@
 const Flight = require('../models/flight');
+const Ticket = require('../models/ticket');
 
 const getAll = async (req, res) => {
     if (!req.query.sort) {
@@ -18,8 +19,10 @@ const show = async (req,res) =>{
         const flight = await Flight.findById(req.params.id);
         if(!flight) throw new Error('flight not found');
         flight.destinations.sort((a,b)=> a.arrival-b.arrival );
+        const tickets = await Ticket.find({flight: flight._id});
         res.render('flights/show',{
             flight,
+            tickets,
             ..._getDefaults(),
         });
     }catch(e){

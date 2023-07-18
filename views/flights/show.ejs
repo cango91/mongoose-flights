@@ -6,7 +6,8 @@
         <div><span><b>Airline:</b></span><span><%= flight.airline %></span></div>
         <div><span><b>From:</b></span><span><%= flight.airport %></span></div>
         <div><span><b>Departure:</b></span><span><%= flight.departs %></span></div>
-        <div><span><b>Destinations:</b></span><span class="details">
+        <div>
+            <span><b>Destinations:</b></span><span class="details">
             <div style="display: flex; margin: 0 0 20px 0;">
                 <form method="post" action="/flights/<%= flight._id %>/destinations">
                     <label>Arrival:</label>
@@ -29,9 +30,27 @@
                 </div>
                 <% }); %>
         <% }else{ %>
-
             <% } %>
-        </span></div>
+        </span>
+    </div>
+    <div style="margin-top: 15px;">
+        <span><b>Tickets:</b></span>
+        <span class="details">
+
+            <% if(tickets && tickets.length){ %>
+                <div>
+                    <a href="/flights/<%= flight._id %>/tickets/new">Create a new ticket</a>
+                </div>
+                <%- tickets.map(ticket => 
+                `<div style="display: flex; justify-content: space-between; max-width: 300px;">
+                    <span><form style="display:inline-block; margin-right: 10px;" method="post" action="/flights/${flight._id}/tickets/?_method=DELETE"><input type="submit" value="X" style="color: red;"><input type="hidden" value="${ticket._id}" name="ticketId"></form><b>Seat:</b></span><span>${ticket.seat}</span>
+                    <span><b>Price:</b></span><span>&#36;${ticket.price}</span>
+                </div>`).join(''); %>
+            <% }else{ %>
+                <p>No tickets for this flight. <br> <a href="/flights/<%= flight._id %>/tickets/new">Click</a> to be the first to create ticket</p>
+            <% } %>
+        </span>
+    </div>
 
     </div>
 <% }else{ %>

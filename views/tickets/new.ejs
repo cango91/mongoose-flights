@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+    <h2>Create a new ticket for flight #<%= flight.flightNo %></h2>
+    <form action="/flights/<%= flight._id %>/tickets" method="post">
+        <div style="display: grid; grid-template-columns: 1fr 4fr; grid-template-rows: auto auto auto auto; max-width: 500px;">
+            <label>Seat</label>
+            <input type="text" pattern="[A-F][1-9]\d?" name="seat">
+            <label>Price</label>
+            <input type="number" min="0" name="price">
+            <span></span>
+            <input type="submit" value="Create" style="margin-top: 10px;">
+        </div>
+    </form>
+
+    <p class="missed"><%= errMsg %></p>
+
+<%- include('../partials/footer') %>
